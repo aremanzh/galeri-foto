@@ -1,15 +1,57 @@
-import { StyleSheet } from 'react-native';
+import { ScrollView, Image, ActivityIndicator, StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
+import PhotosList from '../../components/PhotosList';
 import { Text, View } from '../../components/Themed';
 
-export default function TabOneScreen() {
+export default function Home() {
+
+  const photos = [
+    {
+      id: 1,
+      source: "https://picsum.photos/id/43/512",
+    },
+    {
+      id: 2,
+      source: "https://picsum.photos/id/35/512",
+    },
+    {
+      id: 3,
+      source: "https://picsum.photos/id/28/512",
+    },
+    {
+      id: 4,
+      source: "https://picsum.photos/id/17/512",
+    },
+    {
+      id: 5,
+      source: "https://picsum.photos/id/58/512",
+    },
+    {
+      id: 6,
+      source: "https://picsum.photos/id/59/512",
+    },
+    {
+      id: 7,
+      source: "https://picsum.photos/id/57/512",
+    },
+    {
+      id: 8,
+      source: "https://picsum.photos/id/60/512",
+    },
+    {
+      id: 9,
+      source: "https://picsum.photos/id/64/512",
+    },
+    {
+      id: 10,
+      source: "https://picsum.photos/id/70/512",
+    },
+  ]
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <PhotosList loading={true} photos={photos}/>
+    </ScrollView>
   );
 }
 
