@@ -1,17 +1,22 @@
 import * as React from 'react';
 import { useGlobalSearchParams, Stack, Link } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, ActivityIndicator, Pressable, useColorScheme } from "react-native";
+import { View, ActivityIndicator, Pressable, useColorScheme, Platform } from "react-native";
 import { Image } from 'expo-image';
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
+import { captureRef } from 'react-native-view-shot';
+import domtoimage from 'dom-to-image';
+import * as MediaLibrary from 'expo-media-library';
 
-import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { Avatar, Button, Card, Text, Divider } from 'react-native-paper';
 const LeftContent = props => <FontAwesome name="user" size={30} style={{ marginLeft: 15 }}/>
 
 export default function PhotoDetail() {
+  const imageRef = React.useRef();
   const [isLoading, setIsLoading] = useState(false);
   const {id, url} = useGlobalSearchParams();
+  const colorScheme = useColorScheme();
 
   // useEffect(() => {
   //   fetch(`https://randomuser.me/api/`)
@@ -27,14 +32,42 @@ export default function PhotoDetail() {
     return <ActivityIndicator/>;
   }
 
-  const colorScheme = useColorScheme();
+  const onSaveImageAsync = async () => {
+    if (Platform.OS !== 'web') {
+      try {
+        const localUri = await captureRef(imageRef, {
+          height: 440,
+          quality: 1,
+        });
+        await MediaLibrary.saveToLibraryAsync(localUri);
+        if (localUri) {
+          alert('Saved!');
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      try {
+        const dataUrl = () => {
+          return url;
+        };
+
+        let link = document.createElement('a');
+        link.download = `${url}-${Date.now()}.jpeg`;
+        link.href = dataUrl;
+        link.click();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
 
   return (
     <View style={{flex:1}}>
       <Stack.Screen options={{
         title: id, 
         headerRight: () => (
-            <Pressable onPress={() => alert("Download...")}>
+            <Pressable onPress={onSaveImageAsync}>
               {({ pressed }) => (
                 <FontAwesome
                   name="save"
@@ -57,10 +90,12 @@ export default function PhotoDetail() {
           <Text variant="bodyMedium">Size:</Text>
           <Text variant="bodyMedium">Upload Timestamp:</Text>
         </Card.Content>
+        <Divider/>
         <Card.Title 
-        title="Muat Naik oleh: " 
-        subtitle="Bahagian: " 
-        left={LeftContent} />
+          title="Muat Naik oleh: " 
+          subtitle="Bahagian: " 
+          left={LeftContent} 
+        />
       </Card>
     </View>
   );
