@@ -1,18 +1,17 @@
-import { Pressable, TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import MasonryList from "@react-native-seoul/masonry-list";
-import { View } from "./Themed";
 import { Link, router } from "expo-router";
 import { Image } from "expo-image";
 import { Searchbar } from "react-native-paper";
 import React from "react";
 
-interface PhotosListProps {
-  photos: any[]; // Change 'object' to the appropriate data type for photos
+interface FolderListProps {
+  folder: any[]; // Change 'object' to the appropriate data type for photos
   loading: boolean;
   // onRefresh: () => void; // Change 'null' to the appropriate function type
 }
 
-const PhotosList: React.FC<PhotosListProps> = ({ photos, loading }) => {
+const FolderList: React.FC<FolderListProps> = ({ folder, loading }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
 
@@ -25,7 +24,7 @@ const PhotosList: React.FC<PhotosListProps> = ({ photos, loading }) => {
         value={searchQuery}
       />
       <MasonryList
-        data={photos}
+        data={folder}
         numColumns={2}
         keyExtractor={(item, index) => index.toString()} // You may want to use a unique key
         showsVerticalScrollIndicator={false}
@@ -34,12 +33,12 @@ const PhotosList: React.FC<PhotosListProps> = ({ photos, loading }) => {
           <>
             <Link
               href={{
-                pathname: "/photo/[id]",
+                pathname: "/folder/[id]",
                 params: { id: item.id, url: item.source },
               }}
               asChild
             >
-              <Pressable>
+              <Pressable style={{padding:2}}>
                 <Image
                   contentFit="cover"
                   source={{ uri: item.source }}
@@ -55,4 +54,4 @@ const PhotosList: React.FC<PhotosListProps> = ({ photos, loading }) => {
   );
 };
 
-export default PhotosList;
+export default FolderList;

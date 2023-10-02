@@ -6,14 +6,16 @@ import { Image } from 'expo-image';
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from "../../constants/Colors";
 import { captureRef } from 'react-native-view-shot';
-import domtoimage from 'dom-to-image';
+// import domtoimage from 'dom-to-image';
+import domtoimage from 'dom-to-image-more';
 import * as MediaLibrary from 'expo-media-library';
 
-import { Avatar, Button, Card, Text, Divider } from 'react-native-paper';
+import {Card, Text, Divider } from 'react-native-paper';
 const LeftContent = props => <FontAwesome name="user" size={30} style={{ marginLeft: 15 }}/>
 
 export default function PhotoDetail() {
   const imageRef = React.useRef();
+  var node = document.getElementById('my-node');
   const [isLoading, setIsLoading] = useState(false);
   const {id, url} = useGlobalSearchParams();
   const colorScheme = useColorScheme();
@@ -48,14 +50,14 @@ export default function PhotoDetail() {
       }
     } else {
       try {
-        const dataUrl = () => {
-          return url;
-        };
-
-        let link = document.createElement('a');
-        link.download = `${url}-${Date.now()}.jpeg`;
-        link.href = dataUrl;
-        link.click();
+        domtoimage
+        .toJpeg(document.getElementById('photo'))
+        .then(function (dataUrl) {
+            var link = document.createElement('a');
+            link.download = `${url}-${Date.now()}.jpeg`;
+            link.href = dataUrl;
+            link.click();
+        });
       } catch (e) {
         console.log(e);
       }
@@ -65,6 +67,7 @@ export default function PhotoDetail() {
   return (
     <View style={{flex:1}}>
       <Stack.Screen options={{
+        headerShown: true,
         title: id, 
         headerRight: () => (
             <Pressable onPress={onSaveImageAsync}>
@@ -80,7 +83,7 @@ export default function PhotoDetail() {
         ),
       }}/>
       <Card mode='contained'>
-        <Card.Cover source={{ uri: url }} style={{height: 400,width: '100%'}}/>
+        <Card.Cover id='photo' source={{ uri: url }} style={{height: 400,width: '100%'}}/>
         <Card.Content>
           <Text variant="titleLarge">{id}</Text>
           <Text variant="bodyMedium">URL: {url}</Text>

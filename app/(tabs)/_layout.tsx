@@ -4,6 +4,8 @@ import { Pressable, useColorScheme, View, Image } from 'react-native';
 
 import Colors from '../../constants/Colors';
 
+import logo from "../../assets/images/logo.png";
+
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -16,8 +18,8 @@ function TabBarIcon(props: {
 
 function Nav() {
   return (
-    <View style={{marginHorizontal: 30}}>
-      <Image source={require("../../assets/images/icon.png")} style={{width: 68, height: 68}}/>
+    <View style={{marginHorizontal: 20}}>
+      <Image source={logo} style={{width: 350, height: 100}} resizeMode={'contain'}/>
     </View>
   )
 }
@@ -60,10 +62,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="upload"
+        name="folder"
         options={{
-          title: 'Muat Naik',
-          tabBarIcon: ({ color }) => <TabBarIcon name="cloud" color={color} />,
+          title: 'Program',
+          tabBarIcon: ({ color }) => <TabBarIcon name="folder" color={color} />,
         }}
       />
       <Tabs.Screen
