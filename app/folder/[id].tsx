@@ -104,7 +104,7 @@ export default function PhotoDetail() {
         title: id, 
         headerRight: () => (
             <View style={{flexDirection: 'row'}}>
-                <Pressable onPress={() => router.push(`/folder/[id]/upload`)}>
+                <Pressable onPress={() => router.push({ pathname: '/folder/upload', params: { id: id } })}>
                 {({ pressed }) => (
                     <FontAwesome
                     name="upload"

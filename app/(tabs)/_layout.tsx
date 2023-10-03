@@ -1,5 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
+import { Link, router, Tabs } from 'expo-router';
 import { Pressable, useColorScheme, View, Image } from 'react-native';
 
 import Colors from '../../constants/Colors';
@@ -19,7 +19,9 @@ function TabBarIcon(props: {
 function Nav() {
   return (
     <View style={{marginHorizontal: 20}}>
-      <Image source={logo} style={{width: 350, height: 100}} resizeMode={'contain'}/>
+      <Pressable onPress={() => router.replace('/')}>
+        <Image source={logo} style={{width: 350, height: 100}} resizeMode={'contain'}/>
+      </Pressable>
     </View>
   )
 }
