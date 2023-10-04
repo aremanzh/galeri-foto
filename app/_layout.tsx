@@ -2,7 +2,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -48,13 +48,13 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const [auth, setAuth] = useState(null);
   const colorScheme = useColorScheme();
-  const authenticated = false;
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName={authenticated ? '(tabs)' : 'auth/login'} screenOptions={{headerShown: false}}>
-        {authenticated ? (
+      <Stack initialRouteName={auth ? '(tabs)' : 'auth/login'} screenOptions={{headerShown: false}}>
+        {auth ? (
           <>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: 'modal' }} />

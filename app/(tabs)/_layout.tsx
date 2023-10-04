@@ -29,6 +29,10 @@ function Nav() {
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  const handleLogout = () => {
+    router.replace('/auth/login');
+  }
+
   return (
     <Tabs
       screenOptions={{
@@ -41,8 +45,7 @@ export default function TabLayout() {
           title: 'Utama',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
+              <Pressable onPress={handleLogout}>
                 {({ pressed }) => (
                   <FontAwesome
                     name="info-circle"
@@ -52,7 +55,6 @@ export default function TabLayout() {
                   />
                 )}
               </Pressable>
-            </Link>
           ),
         }}
       />
