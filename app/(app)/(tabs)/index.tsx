@@ -1,9 +1,22 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { ScrollView, Image, ActivityIndicator, StyleSheet } from 'react-native';
 
-import PhotosList from '../../components/PhotosList';
-import { Text, View } from '../../components/Themed';
+import PhotosList from '../../../components/PhotosList';
+import { Text, View } from '../../../components/Themed';
 
 export default function Home() {
+  const [photo, setPhoto] = useState(null);
+
+  const loadPhotos = async () => {
+    const {data} = await axios.get(`http://127.0.0.1:8000/api/v1/photos`);
+    
+    console.log(photos);
+
+    if(data){
+      setPhoto(data);
+    }
+  }
 
   const photos = [
     {
@@ -50,7 +63,9 @@ export default function Home() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <PhotosList loading={true} photos={photos}/>
+      <Text onPress={() => loadPhotos()}>load photo</Text>
+      
+      {/* <PhotosList loading={true} photos={photo}/> */}
     </ScrollView>
   );
 }

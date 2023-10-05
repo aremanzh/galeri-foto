@@ -1,10 +1,10 @@
 import { StyleSheet, useColorScheme } from 'react-native';
 
-import { View } from '../../components/Themed';
+import { View } from '../../../components/Themed';
 import { Button, Card, Text, TextInput } from 'react-native-paper';
 import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function UploadScreen() {

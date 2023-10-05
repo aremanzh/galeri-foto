@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+import EditScreenInfo from '../../../components/EditScreenInfo';
+import { Text, View } from '../../../components/Themed';
 import { Searchbar } from 'react-native-paper';
-import FolderList from '../../components/FolderList';
+import FolderList from '../../../components/FolderList';
 
 export default function FolderScreen() {
   const [searchQuery, setSearchQuery] = React.useState('');

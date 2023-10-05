@@ -2,9 +2,13 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, router, Tabs } from 'expo-router';
 import { Pressable, useColorScheme, View, Image } from 'react-native';
 
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 
-import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/logo.png";
+import { useSession } from '../../../context/auth';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import axios from 'axios';
+
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -28,9 +32,10 @@ function Nav() {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { signOut } = useSession();
 
-  const handleLogout = () => {
-    router.replace('/auth/login');
+  const handleLogout = async () => {
+    signOut();
   }
 
   return (
@@ -47,12 +52,7 @@ export default function TabLayout() {
           headerRight: () => (
               <Pressable onPress={handleLogout}>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
+                  <MaterialCommunityIcons name="logout" size={25} color={Colors[colorScheme ?? 'light'].text} style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }} />
                 )}
               </Pressable>
           ),

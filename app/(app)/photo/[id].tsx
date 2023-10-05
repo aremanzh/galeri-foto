@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { View, ActivityIndicator, Pressable, useColorScheme, Platform } from "react-native";
 import { Image } from 'expo-image';
 import { FontAwesome } from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
+import Colors from "../../../constants/Colors";
 import { captureRef } from 'react-native-view-shot';
 // import domtoimage from 'dom-to-image';
 import domtoimage from 'dom-to-image-more';

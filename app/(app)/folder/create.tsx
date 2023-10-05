@@ -1,8 +1,8 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import { Pressable, StyleSheet, useColorScheme } from 'react-native';
-import { View } from '../../components/Themed';
-import Colors from '../../constants/Colors';
+import { View } from '../../../components/Themed';
+import Colors from '../../../constants/Colors';
 
 export default function FolderCreateScreen() {
     const colorScheme = useColorScheme();

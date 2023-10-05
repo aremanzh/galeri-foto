@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { View, ActivityIndicator, Pressable, useColorScheme, Platform } from "react-native";
 import { Image } from 'expo-image';
 import { FontAwesome } from "@expo/vector-icons";
-import Colors from "../../constants/Colors";
+import Colors from "../../../constants/Colors";
 import { captureRef } from 'react-native-view-shot';
 // import domtoimage from 'dom-to-image';
 import domtoimage from 'dom-to-image-more';
 import * as MediaLibrary from 'expo-media-library';
 
 import {Card, Text, Divider } from 'react-native-paper';
-import FolderItem from '../../components/FolderItem';
+import FolderItem from '../../../components/FolderItem';
 
 export default function PhotoDetail() {
     const itemList = [

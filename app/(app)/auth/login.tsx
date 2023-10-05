@@ -1,15 +1,18 @@
 import { Image, StyleSheet  } from "react-native";
-import { View } from "../../components/Themed";
+import { View } from "../../../components/Themed";
 import { Button, TextInput, HelperText } from "react-native-paper";
-import logo from "../../assets/images/logo.png";
-import React from "react";
+import logo from "../../../assets/images/logo.png";
+import {useState, useContext} from "react";
 import axios from "axios";
 import { router } from 'expo-router';
+// import { AuthContext } from "../../context/auth";
 
 export default function LoginScreen() {
-  const [id, setID] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  // const [auth, setAuth] = useContext(AuthContext);
+
+  const [id, setID] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function Nav() {
     return (
@@ -31,27 +34,27 @@ export default function LoginScreen() {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post("http://127.0.0.1:8000/api/v1/signin", {
+      const response = await axios.post("http://127.0.0.1:8000/api/v1/signin", {
         "staff_ic": id,
         "password": password,
       });
 
-      console.log(data);
+      console.log(response.data);
       
-      if (data.error) {
-        alert(data.error);
-        setLoading(false);
-      } else {
-        alert("berjaya log masuk");
-        setLoading(false);
-        router.replace(`/`);
+      // if (data.error) {
+      //   alert(data.error);
+      //   setLoading(false);
+      // } else {
+      //   alert("berjaya log masuk");
+      //   setLoading(false);
+      //   router.replace(`/`);
        
         // setAuth(data);
         // await AsyncStorage.setItem('@auth', JSON.stringify(data));
         // alert("Login successful");
         // setLoading(false);
         // navigation.navigate("Home", { user: { id: data.user._id, name: data.user.name } });
-      }
+      // }
     } catch (err) {
       console.log(err);
       setLoading(false);
