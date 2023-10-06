@@ -1,6 +1,6 @@
 import { Pressable, TouchableOpacity } from "react-native";
 import MasonryList from "@react-native-seoul/masonry-list";
-import { View } from "./Themed";
+import { Text, View } from "./Themed";
 import { Link, router } from "expo-router";
 import { Image } from "expo-image";
 import { Searchbar } from "react-native-paper";
@@ -35,14 +35,14 @@ const PhotosList: React.FC<PhotosListProps> = ({ photos, loading }) => {
             <Link
               href={{
                 pathname: "/photo/[id]",
-                params: { id: item.id, url: item.source },
+                params: { id: item.id },
               }}
               asChild
             >
               <Pressable>
                 <Image
                   contentFit="cover"
-                  source={{ uri: item.source }}
+                  source={{ uri: `http://localhost:8000/storage/${item.name}` }}
                   style={{ height: 200, width: "100%" }}
                   transition={1000}
                 />
