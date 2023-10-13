@@ -60,7 +60,7 @@ export default function SignUp() {
     } else {
       try {
         setLoading(true);
-        const {data} = await axios.post("http://127.0.0.1:8000/api/v1/signup", {
+        const {data} = await axios.post("http://10.85.146.142:8000/api/v1/signup", {
             staff_nama: nama,
             staff_ic: id,
             staff_emel: emel,

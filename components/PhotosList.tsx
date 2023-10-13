@@ -35,14 +35,14 @@ const PhotosList: React.FC<PhotosListProps> = ({ photos, loading }) => {
             <Link
               href={{
                 pathname: "/photo/[id]",
-                params: { id: item.id },
+                params: { id: item.id, url: `http://10.85.146.142:8000/storage/${item.uri}` },
               }}
               asChild
             >
               <Pressable>
                 <Image
                   contentFit="cover"
-                  source={{ uri: `http://localhost:8000/storage/${item.name}` }}
+                  source={{ uri: `http://10.85.146.142:8000/storage/${item.uri}` }}
                   style={{ height: 200, width: "100%" }}
                   transition={1000}
                 />

@@ -44,7 +44,7 @@ export default function SignIn() {
     } else {
       try {
         setLoading(true);
-        const response = await axios.post("http://127.0.0.1:8000/api/v1/signin", {
+        const response = await axios.post("http://10.85.146.142:8000/api/v1/signin", {
           staff_ic: id,
           password: password,
         });

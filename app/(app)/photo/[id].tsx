@@ -6,8 +6,8 @@ import { Image } from 'expo-image';
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from "../../../constants/Colors";
 import { captureRef } from 'react-native-view-shot';
-// import domtoimage from 'dom-to-image';
-import domtoimage from 'dom-to-image-more';
+import domtoimage from 'dom-to-image';
+// import domtoimage from 'dom-to-image-more';
 import * as MediaLibrary from 'expo-media-library';
 
 import {Card, Text, Divider } from 'react-native-paper';
@@ -15,10 +15,13 @@ const LeftContent = props => <FontAwesome name="user" size={30} style={{ marginL
 
 export default function PhotoDetail() {
   const imageRef = React.useRef();
-  var node = document.getElementById('my-node');
+  // var node = document.getElementById('my-node');
   const [isLoading, setIsLoading] = useState(false);
   const {id, url} = useGlobalSearchParams();
   const colorScheme = useColorScheme();
+
+  console.log(url);
+  
 
   // useEffect(() => {
   //   fetch(`https://randomuser.me/api/`)
@@ -38,7 +41,6 @@ export default function PhotoDetail() {
     if (Platform.OS !== 'web') {
       try {
         const localUri = await captureRef(imageRef, {
-          height: 440,
           quality: 1,
         });
         await MediaLibrary.saveToLibraryAsync(localUri);
@@ -50,16 +52,33 @@ export default function PhotoDetail() {
       }
     } else {
       try {
-        domtoimage
-        .toJpeg(document.getElementById('photo'))
-        .then(function (dataUrl) {
-            var link = document.createElement('a');
-            link.download = `${url}-${Date.now()}.jpeg`;
-            link.href = dataUrl;
-            link.click();
+        const response = await fetch(url, {
+          method: "GET",
+          mode: "no-cors"
         });
+      
+        if (response.ok) {
+          // If the response is successful, create a blob from it
+          const blob = await response.blob();
+      
+          // Create a URL for the blob
+          const url = window.URL.createObjectURL(blob);
+      
+          // Create a link element to trigger the download
+          let link = document.createElement('a');
+          link.download = 'sticker-smash.jpeg';
+          link.href = url;
+      
+          // Trigger the download by clicking the link
+          link.click();
+      
+          // Clean up by revoking the object URL
+          window.URL.revokeObjectURL(url);
+        } else {
+          console.error('Response not ok', response.status, response.statusText);
+        }
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
   };
@@ -83,7 +102,9 @@ export default function PhotoDetail() {
         ),
       }}/>
       <Card mode='contained'>
-        <Card.Cover id='photo' source={{ uri: url }} style={{height: 400,width: '100%'}}/>
+        <View ref={imageRef} collapsable={false}>
+          <Card.Cover id='photo' src={url} source={{ uri: url }} style={{height: 400,width: '100%'}}/>
+        </View>
         <Card.Content>
           <Text variant="titleLarge">{id}</Text>
           <Text variant="bodyMedium">URL: {url}</Text>

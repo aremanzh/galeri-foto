@@ -19,7 +19,7 @@ export default function Home() {
   const loadPhotos = async () => {
     try {
       setLoading(true);
-      const {data} = await axios.get(`http://127.0.0.1:8000/api/v1/photos`);
+      const {data} = await axios.get(`http://10.85.146.142:8000/api/v1/photos`);
       console.log(data);
       setPhoto(prevPhotos => ({
         ...prevPhotos,
